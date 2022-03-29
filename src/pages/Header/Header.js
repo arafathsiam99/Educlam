@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { Link} from "react-router-dom";
-import useAuth from '../../Hooks/useFirebase/useAuth';
 import useFirebase from '../../Hooks/useFirebase/useFirebase';
 import "./Header.css";
 const Header = () => {

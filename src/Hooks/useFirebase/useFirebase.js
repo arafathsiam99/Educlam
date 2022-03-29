@@ -14,6 +14,7 @@ import initializeAuthentication from "./firebase.init";
 initializeAuthentication();
 
 const useFirebase = () => {
+  
   const [name, setName] = useState("");
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -41,25 +42,25 @@ const useFirebase = () => {
   };
 
   //Email Registration 
-  const registration = (name, email, password) => {
+  const registration = (name, email, password, history) => {
     setIsLoading(true);
-    alert("registration is clicked", email, password);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        setUser(user);
-        alert("user Create successfully");
-        // ...
+        const newUser = { email, displayName: name };
+        setUser(newUser);
+        // update name after registrationn
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        })
+          .then(() => {})
+          .catch((error) => {});
+        history.replace("/");
       })
       .catch((error) => {
-        setError(error.message);
         console.log(error.message);
         // ..
       })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {

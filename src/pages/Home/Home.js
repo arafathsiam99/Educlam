@@ -89,7 +89,7 @@ const Home = () => {
 
       {/* OUR GALLERY */}
       <h1 className="text-center">OUR GALLERY</h1>
-      <div className="gallery pt-5">
+      <div className="gallery pt-5 container">
         {/* first row  */}
         <div className="row">
           <div className="col-lg-4 g-0">

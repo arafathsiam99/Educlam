@@ -1,20 +1,15 @@
-import { getAuth } from "firebase/auth";
 import React, { useRef, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import useAuth from "../../Hooks/useFirebase/useAuth";
-// import useFirebase from "../../Hooks/useFirebase";
+import useFirebase from "../../Hooks/useFirebase/useFirebase";
 import img from "../../Images/registration.svg";
 const Register = () => {
-  // register function from firebase
-//   const { registration } = useFirebase();
   // get form data
-  const { setUser, setName, updateName } = useAuth();
-    const auth = getAuth();
+  const { setUser, setName, updateName, registration } = useFirebase();
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
-  const [image, setImage] = useState(null);
   const userTypeRef = useRef();
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -26,27 +21,27 @@ const Register = () => {
   // handle registration
   const handleRegistration = (e) => {
     e.preventDefault();
-    const name = nameRef.current.value;
-    nameRef.current.value = "";
-    const email = emailRef.current.value;
-    emailRef.current.value = "";
-    const password = passwordRef.current.value;
-    passwordRef.current.value = "";
+    console.log(userName,email,password);
+    // const name = nameRef.current.value;
+    // nameRef.current.value = "";
+    // const email = emailRef.current.value;
+    // emailRef.current.value = "";
+    // const password = passwordRef.current.value;
+    // passwordRef.current.value = "";
 
-    const userType = userTypeRef.current.value;
-    userTypeRef.current.value = "";
+    // const userType = userTypeRef.current.value;
+    // userTypeRef.current.value = "";
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("image", image);
-    formData.append("userType", userType);
+    // const formData = new FormData();
+    // formData.append("name", name);
+    // formData.append("email", email);
+    // formData.append("password", password);
+    // formData.append("userType", userType);
 
-    const newData = { name, email, password };
-    console.log(newData);
+    // const newData = { name, email, password };
+    // console.log(newData);
 
-    // registration(newData.name, newData.email, newData.password);
+    registration(userName, email, password, history);
   };
 
   return (
@@ -61,9 +56,12 @@ const Register = () => {
               <div className="form-floating mb-3">
                 <input
                   type="text"
+                  name="name"
                   className="form-control"
                   placeholder="Full Name"
-                  ref={nameRef}
+                  onBlur={(e) => {
+                    setUserName(e.target.value);
+                  }}
                   required
                 />
                 <label>Name</label>
@@ -73,7 +71,9 @@ const Register = () => {
                   type="email"
                   className="form-control"
                   placeholder="name@example.com"
-                  ref={emailRef}
+                  onBlur={(e) => {
+                    setEmail(e.target.value);
+                  }}
                   required
                 />
                 <label>Email address</label>
@@ -83,36 +83,13 @@ const Register = () => {
                   type="password"
                   className="form-control"
                   placeholder="Password"
-                  ref={passwordRef}
+                  onBlur={(e) => {
+                    setPassword(e.target.value);
+                  }}
                   required
                 />
                 <label>Password</label>
               </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="file"
-                  className="form-control"
-                  placeholder="image"
-                  accept="image/*"
-                  required
-                  onChange={(e) => setImage(e.target.files[0])}
-                />
-              </div>
-              {/* <div className="form-floating mb-3">
-                <select
-                  name=""
-                  id=""
-                  className="form-control"
-                  required
-                  ref={userTypeRef}
-                >
-                  <option value="" disabled>
-                    Select User Type
-                  </option>
-                  <option value="Student">Student</option>
-                  <option value="Teacher">Teacher</option>
-                </select>
-              </div> */}
               <div className="mt-5 text-center">
                 <button className="btn btn-primary w-100">Submit</button>
                 <p>

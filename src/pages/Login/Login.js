@@ -7,6 +7,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import React, { useRef, useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -93,12 +94,12 @@ const Login = () => {
             <div className="login">
               <div className="login-box">
                 <h2 className="custom-font">Please Login here with google</h2>
-                <button
+                <Button
                   onClick={handleGoogleSignIn}
                   className="custom-btn w-80"
                 >
                   Google Sign In
-                </button>
+                </Button>
                 <Link to="/register"> </Link>
               </div>
             </div>
