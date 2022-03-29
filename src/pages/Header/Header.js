@@ -2,12 +2,13 @@ import React from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { Link} from "react-router-dom";
 import useAuth from '../../Hooks/useFirebase/useAuth';
+import useFirebase from '../../Hooks/useFirebase/useFirebase';
 import "./Header.css";
 const Header = () => {
-  // const { user, logOut } = useAuth();
-  // const handleLogOut = () => {
-  //   logOut();
-  // };
+  const { user, logout } = useFirebase();
+  const handleLogOut = () => {
+    logout();
+  };
     return (
       <div>
         <Navbar bg="light" expand="lg">
@@ -22,13 +23,13 @@ const Header = () => {
                   Home
                 </Link>
 
-                {/* {user?.email && (
+                {user?.email && (
                   <Link className="menu-item" to="/services">
                     Services
                   </Link>
-                )} */}
+                )}
 
-                {/* {!user?.email ? (
+                {!user?.email ? (
                   <Link className="menu-item" to="/login">
                     Login
                   </Link>
@@ -36,10 +37,10 @@ const Header = () => {
                   <Button variant="dark" onClick={handleLogOut}>
                     Logout
                   </Button>
-                )} */}
-                {/* <Navbar.Text className="custom-text">
+                )}
+                <Navbar.Text className="custom-text">
                   {user.displayName}
-                </Navbar.Text> */}
+                </Navbar.Text>
               </Nav>
             </Navbar.Collapse>
           </Container>
